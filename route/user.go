@@ -29,9 +29,12 @@ func CreateResponseUser(userModel model.User) User {
 // @Produce json
 // @id CreateUser
 // @tag.name "User"
+// @tag.description "User Routes"
 // @Param User formData User true "user input"
 // @Success 201 {object} User
 // @Failure 400 {object}  HTTPError
+// @Failure 404 {object}  HTTPError
+// @Failure 500 {object}  HTTPError
 // @Router /api/users/ [post]
 func CreateUser(c *fiber.Ctx) error {
 	var user model.User
@@ -52,9 +55,11 @@ func CreateUser(c *fiber.Ctx) error {
 // @Description Get all users
 // @Produce json
 // @id GetUsers
-// @tag.name User
+// @tag.name "User"
 // @Success 200 {object} []User
 // @Failure 400 {object}  HTTPError
+// @Failure 404 {object}  HTTPError
+// @Failure 500 {object}  HTTPError
 // @Router /api/users/ [get]
 func GetUsers(c *fiber.Ctx) error {
 	users := []model.User{}
@@ -81,8 +86,10 @@ func findUser(id int, user *model.User) error {
 // @Description Get a single user
 // @Produce json
 // @Param id path int true "User ID"
-// @id GetUser
-// @tag.name User
+// @id "GetUser"
+// @tag.description "User Routes"
+// @tag.name "User"
+// @tag.description "User Routes"
 // @Success 200 {object} User
 // @Failure 400 {object}  HTTPError
 // @Failure 404  {object}  HTTPError
@@ -111,7 +118,8 @@ func GetUser(c *fiber.Ctx) error {
 // @Param id path int true "User ID"
 // @Param User formData User true "user input"
 // @id UpdateUser
-// @tag.name User
+// @tag.name "User"
+// @tag.description "User Routes"
 // @Success 200 {object} User
 // @Failure 400 {object}  HTTPError
 // @Failure 404 {object}  HTTPError
@@ -154,7 +162,8 @@ func UpdateUser(c *fiber.Ctx) error {
 // @Produce json
 // @Param id path int true "User ID"
 // @id DeleteUser
-// @tag.name User
+// @tag.name "User"
+// @tag.description "User Routes"
 // @Success 200 {object} User
 // @Failure 400 {object}  HTTPError
 // @Failure 404 {object}  HTTPError

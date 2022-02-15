@@ -43,6 +43,272 @@ const docTemplate_swagger = `{
                 }
             }
         },
+        "/api/orders/": {
+            "get": {
+                "description": "Get all Orders",
+                "produces": [
+                    "application/json"
+                ],
+                "operationId": "GetOrders",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/route.Order"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create new Order",
+                "produces": [
+                    "application/json"
+                ],
+                "operationId": "CreateOrder",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "order_date",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/route.Order"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/": {
+            "get": {
+                "description": "Get all Products",
+                "produces": [
+                    "application/json"
+                ],
+                "operationId": "GetProducts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/route.Product"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create new product",
+                "produces": [
+                    "application/json"
+                ],
+                "operationId": "CreateProduct",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "serial_number",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/route.Product"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "description": "Get a single Product",
+                "produces": [
+                    "application/json"
+                ],
+                "operationId": "GetProduct",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/route.Product"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update a Product",
+                "produces": [
+                    "application/json"
+                ],
+                "operationId": "UpdateProduct",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "name": "serial_number",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/route.Product"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a Product",
+                "produces": [
+                    "application/json"
+                ],
+                "operationId": "DeleteProduct",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/route.Product"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/users/": {
             "get": {
                 "description": "Get all users",
@@ -62,6 +328,18 @@ const docTemplate_swagger = `{
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/route.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/route.HTTPError"
                         }
@@ -113,7 +391,7 @@ const docTemplate_swagger = `{
                 "produces": [
                     "application/json"
                 ],
-                "operationId": "GetUser",
+                "operationId": "\"GetUser\"",
                 "parameters": [
                     {
                         "type": "integer",
@@ -257,6 +535,37 @@ const docTemplate_swagger = `{
         },
         "route.HTTPError": {
             "type": "object"
+        },
+        "route.Order": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "order_date": {
+                    "type": "string"
+                },
+                "product": {
+                    "$ref": "#/definitions/route.Product"
+                },
+                "user": {
+                    "$ref": "#/definitions/route.User"
+                }
+            }
+        },
+        "route.Product": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "serial_number": {
+                    "type": "string"
+                }
+            }
         },
         "route.User": {
             "type": "object",

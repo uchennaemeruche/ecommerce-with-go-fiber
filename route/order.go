@@ -25,6 +25,16 @@ func OrderResponse(order model.Order, user User, product Product) Order {
 	}
 }
 
+// Order godoc
+// @Description create new Order
+// @Produce json
+// @id CreateOrder
+// @tag.name "Order"
+// @tag.description "Order Routes"
+// @Param Order formData Order true "Order input"
+// @Success 201 {object} Order
+// @Failure 400 {object}  HTTPError
+// @Router /api/orders/ [post]
 func CreateOrder(c *fiber.Ctx) error {
 	var order model.Order
 
@@ -48,6 +58,14 @@ func CreateOrder(c *fiber.Ctx) error {
 
 }
 
+// Order godoc
+// @Description Get all Orders
+// @Produce json
+// @id GetOrders
+// @tag.name "Order"
+// @Success 200 {object} []Order
+// @Failure 400 {object}  HTTPError
+// @Router /api/orders/ [get]
 func GetOrders(c *fiber.Ctx) error {
 	orders := []model.Order{}
 
@@ -67,6 +85,14 @@ func GetOrders(c *fiber.Ctx) error {
 	return c.Status(200).JSON(response)
 }
 
+// Order godoc
+// @Description Get all Orders
+// @Produce json
+// @id GetOrders
+// @tag.name "Order"
+// @Success 200 {object} []Order
+// @Failure 400 {object}  HTTPError
+// @Router /api/orders/ [get]
 func GetOrders2(c *fiber.Ctx) error {
 	orders := []model.Order{}
 

@@ -26,6 +26,16 @@ func findProduct(id int, product *model.Product) error {
 	return nil
 }
 
+// Product godoc
+// @Description create new product
+// @Produce json
+// @id CreateProduct
+// @tag.name "Product"
+// @tag.description "Product Routes"
+// @Param Product formData Product true "Product input"
+// @Success 201 {object} Product
+// @Failure 400 {object}  HTTPError
+// @Router /api/products/ [post]
 func CreateProduct(c *fiber.Ctx) error {
 	var product model.Product
 
@@ -39,6 +49,15 @@ func CreateProduct(c *fiber.Ctx) error {
 	return c.Status(200).JSON(response)
 }
 
+// Product godoc
+// @Description Get all Products
+// @Produce json
+// @id GetProducts
+// @tag.name "Product"
+//  @tag.description "Product Routes"
+// @Success 200 {object} []Product
+// @Failure 400 {object}  HTTPError
+// @Router /api/products/ [get]
 func GetProducts(c *fiber.Ctx) error {
 	products := []model.Product{}
 
@@ -52,6 +71,18 @@ func GetProducts(c *fiber.Ctx) error {
 	return c.Status(200).JSON(response)
 }
 
+// Product godoc
+// @Description Get a single Product
+// @Produce json
+// @Param id path int true "Product ID"
+// @id GetProduct
+// @tag.description "Product Routes"
+// @tag.name "Product"
+// @Success 200 {object} Product
+// @Failure 400 {object}  HTTPError
+// @Failure 404  {object}  HTTPError
+// @Failure 500  {object}  HTTPError
+// @Router /api/products/{id} [get]
 func GetProduct(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	var product model.Product
@@ -67,6 +98,19 @@ func GetProduct(c *fiber.Ctx) error {
 	return c.Status(200).JSON(ProductResponse(product))
 }
 
+// Product godoc
+// @Description Update a Product
+// @Produce json
+// @Param id path int true "Product ID"
+// @Param Product formData Product true "Product input"
+// @id UpdateProduct
+// @tag.name "Product"
+// @tag.description "Product Routes"
+// @Success 200 {object} Product
+// @Failure 400 {object}  HTTPError
+// @Failure 404 {object}  HTTPError
+// @Failure 500 {object}  HTTPError
+// @Router /api/products/{id} [put]
 func UpdateProduct(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	var product model.Product
@@ -97,6 +141,18 @@ func UpdateProduct(c *fiber.Ctx) error {
 	return c.Status(200).JSON(ProductResponse(product))
 }
 
+// Product godoc
+// @Description Delete a Product
+// @Produce json
+// @Param id path int true "Product ID"
+// @id DeleteProduct
+// @tag.name "Product"
+// @tag.description "Product Routes"
+// @Success 200 {object} Product
+// @Failure 400 {object}  HTTPError
+// @Failure 404 {object}  HTTPError
+// @Failure 500 {object}  HTTPError
+// @Router /api/products/{id} [delete]
 func DeleteProduct(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 	var product model.Product

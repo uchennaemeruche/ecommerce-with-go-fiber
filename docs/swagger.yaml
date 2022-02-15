@@ -4,6 +4,26 @@ definitions:
     type: object
   route.HTTPError:
     type: object
+  route.Order:
+    properties:
+      id:
+        type: integer
+      order_date:
+        type: string
+      product:
+        $ref: '#/definitions/route.Product'
+      user:
+        $ref: '#/definitions/route.User'
+    type: object
+  route.Product:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      serial_number:
+        type: string
+    type: object
   route.User:
     properties:
       firstname:
@@ -38,6 +58,179 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/main.HTTPError'
+  /api/orders/:
+    get:
+      description: Get all Orders
+      operationId: GetOrders
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/route.Order'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+    post:
+      description: create new Order
+      operationId: CreateOrder
+      parameters:
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: order_date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/route.Order'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+  /api/products/:
+    get:
+      description: Get all Products
+      operationId: GetProducts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/route.Product'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+    post:
+      description: create new product
+      operationId: CreateProduct
+      parameters:
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: name
+        type: string
+      - in: formData
+        name: serial_number
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/route.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+  /api/products/{id}:
+    delete:
+      description: Delete a Product
+      operationId: DeleteProduct
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/route.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+    get:
+      description: Get a single Product
+      operationId: GetProduct
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/route.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+    put:
+      description: Update a Product
+      operationId: UpdateProduct
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: name
+        type: string
+      - in: formData
+        name: serial_number
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/route.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/route.HTTPError'
   /api/users/:
     get:
       description: Get all users
@@ -53,6 +246,14 @@ paths:
             type: array
         "400":
           description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/route.HTTPError'
     post:
@@ -110,7 +311,7 @@ paths:
             $ref: '#/definitions/route.HTTPError'
     get:
       description: Get a single user
-      operationId: GetUser
+      operationId: '"GetUser"'
       parameters:
       - description: User ID
         in: path
