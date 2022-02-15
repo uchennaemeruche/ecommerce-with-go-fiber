@@ -1,0 +1,176 @@
+basePath: /
+definitions:
+  main.HTTPError:
+    type: object
+  route.HTTPError:
+    type: object
+  route.User:
+    properties:
+      firstname:
+        type: string
+      id:
+        type: integer
+      lastname:
+        type: string
+    type: object
+host: localhost:4000
+info:
+  contact:
+    email: mail.asktech@gmail.com
+    name: API Support
+  description: Go-Fiber implementation of the e-commerce
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Ecommerce Api using Go Fiber
+  version: "1.0"
+paths:
+  /api/:
+    get:
+      description: show the welcome page
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.HTTPError'
+  /api/users/:
+    get:
+      description: Get all users
+      operationId: GetUsers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/route.User'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+    post:
+      description: create new user
+      operationId: CreateUser
+      parameters:
+      - in: formData
+        name: firstname
+        type: string
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: lastname
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/route.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+  /api/users/{id}:
+    delete:
+      description: Delete a user
+      operationId: DeleteUser
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/route.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+    get:
+      description: Get a single user
+      operationId: GetUser
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/route.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+    put:
+      description: Update a user
+      operationId: UpdateUser
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - in: formData
+        name: firstname
+        type: string
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: lastname
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/route.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/route.HTTPError'
+swagger: "2.0"

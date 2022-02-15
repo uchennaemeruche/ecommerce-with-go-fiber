@@ -8,17 +8,31 @@ import (
 	"github.com/uchennaemeruche/ecommerce-with-go-fiber/model"
 )
 
-// Some sor of serializer
+// Some sort of serializer
 type User struct {
 	ID        uint   `json:"id"`
 	FirstName string `json:"firstname"`
 	Lastname  string `json:"lastname"`
 }
 
+type HTTPError struct {
+	status  string
+	message string
+}
+
 func CreateResponseUser(userModel model.User) User {
 	return User{ID: userModel.ID, FirstName: userModel.FirstName, Lastname: userModel.Lastname}
 }
 
+// User godoc
+// @Description create new user
+// @Produce json
+// @id CreateUser
+// @tag.name "User"
+// @Param User formData User true "user input"
+// @Success 201 {object} User
+// @Failure 400 {object}  HTTPError
+// @Router /api/users/ [post]
 func CreateUser(c *fiber.Ctx) error {
 	var user model.User
 
@@ -34,6 +48,14 @@ func CreateUser(c *fiber.Ctx) error {
 
 }
 
+// User godoc
+// @Description Get all users
+// @Produce json
+// @id GetUsers
+// @tag.name User
+// @Success 200 {object} []User
+// @Failure 400 {object}  HTTPError
+// @Router /api/users/ [get]
 func GetUsers(c *fiber.Ctx) error {
 	users := []model.User{}
 
@@ -55,6 +77,17 @@ func findUser(id int, user *model.User) error {
 	return nil
 }
 
+// User godoc
+// @Description Get a single user
+// @Produce json
+// @Param id path int true "User ID"
+// @id GetUser
+// @tag.name User
+// @Success 200 {object} User
+// @Failure 400 {object}  HTTPError
+// @Failure 404  {object}  HTTPError
+// @Failure 500  {object}  HTTPError
+// @Router /api/users/{id} [get]
 func GetUser(c *fiber.Ctx) error {
 	userId, err := c.ParamsInt("id")
 	var user model.User
@@ -72,6 +105,18 @@ func GetUser(c *fiber.Ctx) error {
 	return c.Status(200).JSON(responseUser)
 }
 
+// User godoc
+// @Description Update a user
+// @Produce json
+// @Param id path int true "User ID"
+// @Param User formData User true "user input"
+// @id UpdateUser
+// @tag.name User
+// @Success 200 {object} User
+// @Failure 400 {object}  HTTPError
+// @Failure 404 {object}  HTTPError
+// @Failure 500 {object}  HTTPError
+// @Router /api/users/{id} [put]
 func UpdateUser(c *fiber.Ctx) error {
 	userId, err := c.ParamsInt("id")
 	var user model.User
@@ -104,6 +149,17 @@ func UpdateUser(c *fiber.Ctx) error {
 	return c.Status(200).JSON(responseUser)
 }
 
+// User godoc
+// @Description Delete a user
+// @Produce json
+// @Param id path int true "User ID"
+// @id DeleteUser
+// @tag.name User
+// @Success 200 {object} User
+// @Failure 400 {object}  HTTPError
+// @Failure 404 {object}  HTTPError
+// @Failure 500 {object}  HTTPError
+// @Router /api/users/{id} [delete]
 func DeleteUser(c *fiber.Ctx) error {
 	userId, err := c.ParamsInt("id")
 	var user model.User
